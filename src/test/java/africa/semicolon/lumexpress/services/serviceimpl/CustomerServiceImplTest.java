@@ -13,8 +13,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 class CustomerServiceImplTest {
-//    @Autowired
+    @Autowired
     private CustomerService customerService;
+
+    @Autowired
+    private Cus
+
 
 
     @BeforeEach
@@ -27,12 +31,19 @@ class CustomerServiceImplTest {
 
     @Test
     void register() {
-        CustomerRegistrationRequest request = CustomerRegistrationRequest
-                .builder()
-                .email("test@gmail.com")
-                .password("password-er")
-                .country("Nigeria")
-                .build();
+//        CustomerRegistrationRequest request = CustomerRegistrationRequest
+//                .builder()
+//                .email("test@gmail.com")
+//                .password("password-er")
+//                .country("Nigeria")
+//                .build();
+
+        CustomerRegistrationRequest request = new CustomerRegistrationRequest(
+                "test@gmail.com",
+                "password-er",
+                "Nigeria"
+        );
+
         CustomerRegistrationResponse response =
                 CustomerRegistrationResponse
                         .builder()
@@ -42,6 +53,7 @@ class CustomerServiceImplTest {
 //        CustomerRegistrationResponse response;
         customerService.register(request);
         assertEquals(200, response.getCode());
+        assertEquals(1, );
     }
 
     @Test
