@@ -5,18 +5,20 @@ import africa.semicolon.lumexpress.data.dtos.request.LoginRequest;
 import africa.semicolon.lumexpress.data.dtos.request.UpdateCustomerDetails;
 import africa.semicolon.lumexpress.data.dtos.response.CustomerRegistrationResponse;
 import africa.semicolon.lumexpress.data.dtos.response.LoginResponse;
+import africa.semicolon.lumexpress.data.models.Address;
 import africa.semicolon.lumexpress.data.models.Cart;
 import africa.semicolon.lumexpress.data.models.Customer;
 import africa.semicolon.lumexpress.data.repositories.CustomerRepository;
 import africa.semicolon.lumexpress.services.serviceinterface.CartService;
 import africa.semicolon.lumexpress.services.serviceinterface.CustomerService;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class CustomerServiceImpl implements CustomerService {
 
     private final CartService cartService;
@@ -25,14 +27,22 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public CustomerRegistrationResponse register(CustomerRegistrationRequest register) {
         Customer customer = mapper.map(register, Customer.class);
-        Cart cart = cartService.create();
-        customer.setCart(cart);
-        customerRepository.save(customer);
+        customer.setCart(new Cart());
+        var customerAddress = new Address();
+        customerAddress.setCountry(register.getCountry());
+        customer.getAddresses().add(customerAddress);
+        var savedCustomer = customerRepository.save(customer);
+        log.info("customer to be saved in db::{}", savedCustomer.getEmail());
+        System.out.println(savedCustomer);
+        return registrationResponseBuilder(savedCustomer);
+    }
+
+    private CustomerRegistrationResponse registrationResponseBuilder(Customer customer) {
         return CustomerRegistrationResponse.builder()
                 .message("Welcome! Your registration is successful")
-                .code(200)
+                .code(201)
+                .userId(customer.getId())
                 .build();
-//return null;
     }
 
     /*

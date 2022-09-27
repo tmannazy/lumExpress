@@ -2,7 +2,6 @@ package africa.semicolon.lumexpress.services.serviceimpl;
 
 import africa.semicolon.lumexpress.data.dtos.request.CustomerRegistrationRequest;
 import africa.semicolon.lumexpress.data.dtos.response.CustomerRegistrationResponse;
-import africa.semicolon.lumexpress.data.repositories.CustomerRepository;
 import africa.semicolon.lumexpress.services.serviceinterface.CustomerService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -35,12 +34,10 @@ class CustomerServiceImplTest {
     @Test
     void register() {
         CustomerRegistrationResponse res =  customerService.register(request);
-        assertEquals(200, res.getCode());
         assertThat(res).isNotNull();
         assertThat(res.getMessage()).isNotNull();
         assertThat(res.getUserId()).isGreaterThan(0);
-        assertThat(res.getCode()).isEqualTo(200);
-//        assertEquals(1, customerService.numberOfCustomers());
+        assertThat(res.getCode()).isEqualTo(201);
     }
 
     @Test

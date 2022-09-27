@@ -8,7 +8,6 @@ import java.util.Set;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-//@Builder
 @Getter
 @Setter
 public class Admin extends LumExpressUser {
