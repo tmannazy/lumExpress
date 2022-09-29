@@ -14,6 +14,6 @@ public class CreateProductRequest {
     private String name;
     private BigDecimal price;
     private MultipartFile image;
-    private String category;
+    private String productCategory;
     private int quantity;
 }
