@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateProductRequest {
+public class AddProductRequest {
     private String name;
     private BigDecimal price;
     private MultipartFile image;
