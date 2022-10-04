@@ -2,8 +2,10 @@ package africa.semicolon.lumexpress.services.serviceimpl;
 
 import africa.semicolon.lumexpress.cloud.CloudService;
 import africa.semicolon.lumexpress.data.dtos.request.AddProductRequest;
+import africa.semicolon.lumexpress.data.dtos.request.GetAllItemsRequest;
 import africa.semicolon.lumexpress.data.dtos.request.UpdateProductRequest;
 import africa.semicolon.lumexpress.data.dtos.response.AddProductResponse;
+import africa.semicolon.lumexpress.data.dtos.response.UpdateProductResponse;
 import africa.semicolon.lumexpress.data.models.Category;
 import africa.semicolon.lumexpress.data.models.Product;
 import africa.semicolon.lumexpress.data.repositories.ProductRepository;
@@ -13,11 +15,12 @@ import com.cloudinary.utils.ObjectUtils;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 @Slf4j
@@ -48,7 +51,15 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public String updateProductDetails(UpdateProductRequest request) {
+    public UpdateProductResponse updateProductDetails(UpdateProductRequest request) throws ProductNotFoundException {
+        var foundProduct = productRepository.findById(request.getProductId())
+                .orElseThrow(() -> new ProductNotFoundException(
+                        String.format("product with id %d not found", request.getProductId())
+                ));
+        foundProduct.setPrice(request.getPrice());
+//        foundProduct
+        foundProduct.setQuantity(request.getQuantity());
+
         return null;
     }
 
@@ -66,8 +77,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getAllProducts() {
-        return null;
+    public Page<Product> getAllProducts(GetAllItemsRequest request) {
+        Pageable pageSpecs = PageRequest.of(request.getPageNumber() -1, request.getNumberOfItemsPerPage());
+        return productRepository.findAll(pageSpecs);
     }
 
     @Override

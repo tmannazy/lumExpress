@@ -7,7 +7,7 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetAllProductsRequest {
-    private int numberOfProductsPerPage;
+public class GetAllItemsRequest {
+    private int numberOfItemsPerPage;
     private int pageNumber;
 }
