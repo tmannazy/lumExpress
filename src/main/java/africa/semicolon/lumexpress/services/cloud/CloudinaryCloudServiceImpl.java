@@ -1,4 +1,4 @@
-package africa.semicolon.lumexpress.cloud;
+package africa.semicolon.lumexpress.services.cloud;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;

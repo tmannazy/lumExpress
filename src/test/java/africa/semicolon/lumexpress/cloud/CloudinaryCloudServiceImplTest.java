@@ -1,5 +1,6 @@
 package africa.semicolon.lumexpress.cloud;
 
+import africa.semicolon.lumexpress.services.cloud.CloudService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,7 +15,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class CloudinaryCloudServiceImplTest {

@@ -1,4 +1,4 @@
-package africa.semicolon.lumexpress.cloud;
+package africa.semicolon.lumexpress.services.cloud;
 
 import java.io.IOException;
 import java.util.Map;
