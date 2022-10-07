@@ -8,6 +8,11 @@ import africa.semicolon.lumexpress.data.dtos.response.UpdateProductResponse;
 import africa.semicolon.lumexpress.data.models.Product;
 import africa.semicolon.lumexpress.exceptions.ProductNotFoundException;
 import africa.semicolon.lumexpress.services.serviceinterface.ProductService;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.fge.jackson.jsonpointer.JsonPointer;
+import com.github.fge.jsonpatch.JsonPatch;
+import com.github.fge.jsonpatch.ReplaceOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,6 +27,7 @@ import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -32,7 +38,7 @@ class ProductServiceImplTest {
     private ProductService productService;
 
     private AddProductRequest request;
-    private  AddProductResponse response;
+    private AddProductResponse response;
 
     @BeforeEach
     void setUp() throws IOException {
@@ -52,11 +58,25 @@ class ProductServiceImplTest {
 
     @Test
     void updateProductDetailsTest() throws ProductNotFoundException {
-        UpdateProductRequest updateRequest = buildUpdateRequest();
-        UpdateProductResponse updateResponse = productService.updateProductDetails(updateRequest);
+        ObjectMapper mapper = new ObjectMapper();
+        UpdateProductResponse updateResponse = null;
+        try {
+        JsonNode value = mapper.readTree("1000.00");
+//            JsonNode value = mapper.readTree("\"eggs\"");
+            JsonPatch patch = new JsonPatch(List.of(new ReplaceOperation(new JsonPointer("/price"), value)));
+//            JsonPatch patch = new JsonPatch(List.of(new ReplaceOperation(new JsonPointer("/name"), value)));
+//        JsonPatch patch = JsonPatch.fromJson(value);
+//        UpdateProductRequest updateRequest = buildUpdateRequest();
+            updateResponse = productService.updateProductDetails(1L, patch);
+            log.info("updated product:: {}", updateResponse);
+        } catch (Exception err) {
+            err.printStackTrace();
+        }
         assertThat(updateResponse).isNotNull();
-//        assertThat(updateResponse.getPrice()).is(BigDecimal.valueOf(40.00));
-        assertThat(updateResponse.getStatusCode()).isEqualTo(201);
+//        assertThat(productService.getProductById(1L).getPrice()).isEqualTo(BigDecimal.valueOf(40.00));
+//        assertThat(productService.getProductById(1L).getName()).isEqualTo("eggs");
+        assertThat(productService.getProductById(1L).getName()).isEqualTo("milk");
+        assertThat(updateResponse.getStatusCode()).isEqualTo(200);
     }
 
     @Test
