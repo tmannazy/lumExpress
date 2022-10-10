@@ -32,7 +32,7 @@ class VerificationTokenRepositoryTest {
         tokenRepository.save(verificationToken);
         var foundToken = tokenRepository.findByUserEmail("test@email.com")
                      .orElseThrow(() -> new VerificationTokenException("token not found"));
-        log.info("found token::: {}", foundToken);
+        log.info("found token>>>> {}", foundToken);
         assertThat(foundToken).isNotNull();
         assertThat(foundToken.getToken())
                 .isEqualTo(verificationToken.getToken());

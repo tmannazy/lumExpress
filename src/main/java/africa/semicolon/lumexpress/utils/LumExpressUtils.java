@@ -1,2 +1,11 @@
-package africa.semicolon.lumexpress.utils;public class LumExpressUtils {
+package africa.semicolon.lumexpress.utils;
+
+import java.security.SecureRandom;
+
+public class LumExpressUtils {
+    public static String generateToken() {
+        SecureRandom secureRandom = new SecureRandom();
+        int number = secureRandom.nextInt(10000, 99991);
+        return String.valueOf(number);
+    }
 }

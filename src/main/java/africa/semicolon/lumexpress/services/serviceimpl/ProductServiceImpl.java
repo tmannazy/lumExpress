@@ -1,6 +1,5 @@
 package africa.semicolon.lumexpress.services.serviceimpl;
 
-import africa.semicolon.lumexpress.services.cloud.CloudService;
 import africa.semicolon.lumexpress.data.dtos.request.AddProductRequest;
 import africa.semicolon.lumexpress.data.dtos.request.GetAllItemsRequest;
 import africa.semicolon.lumexpress.data.dtos.response.AddProductResponse;
@@ -9,6 +8,7 @@ import africa.semicolon.lumexpress.data.models.Category;
 import africa.semicolon.lumexpress.data.models.Product;
 import africa.semicolon.lumexpress.data.repositories.ProductRepository;
 import africa.semicolon.lumexpress.exceptions.ProductNotFoundException;
+import africa.semicolon.lumexpress.services.cloud.CloudService;
 import africa.semicolon.lumexpress.services.serviceinterface.ProductService;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
