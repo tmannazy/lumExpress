@@ -7,8 +7,7 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class EmailDetails {
+public class EmailNotificationRequest {
     private String userEmail;
     private String mailContent;
-
 }

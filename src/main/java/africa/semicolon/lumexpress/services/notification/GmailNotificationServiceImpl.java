@@ -16,7 +16,7 @@ public class GmailEmailSenderImpl implements EmailSender{
     private final JavaMailSender javaMailSender;
 
     @Override
-    public String sendHtmlMail(EmailDetails emailDetails) {
+    public String sendHtmlMail(EmailNotificationRequest emailDetails) {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage);
         try {
