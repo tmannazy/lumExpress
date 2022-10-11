@@ -1,4 +1,4 @@
-package africa.semicolon.lumexpress.services.notification;
+package africa.semicolon.lumexpress.data.models;
 
 import lombok.*;
 

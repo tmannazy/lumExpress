@@ -1,5 +1,6 @@
 package africa.semicolon.lumexpress.services.notification;
 
+import africa.semicolon.lumexpress.data.dtos.request.EmailNotificationRequest;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -12,7 +13,7 @@ import javax.mail.internet.MimeMessage;
 @AllArgsConstructor
 @Service
 @Slf4j
-public class GmailEmailSenderImpl implements EmailSender{
+public class GmailNotificationServiceImpl implements EmailNotificationService {
     private final JavaMailSender javaMailSender;
 
     @Override

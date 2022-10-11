@@ -12,6 +12,7 @@ import java.util.TreeSet;
 @Entity
 @Getter
 @Setter
+@Builder
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor

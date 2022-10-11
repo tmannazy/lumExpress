@@ -1,0 +1,8 @@
+<p>
+Hi %s,<br>
+We say THANK YOU for choosing Lum Express.<br>
+On this occasion, we charge you to shop for the harmony,
+happiness, and prosperity of your existence, with heart and soul.<br>
+Please click the link below to activate your account.
+<p><a href="%s">Activate</a></p>
+</p>

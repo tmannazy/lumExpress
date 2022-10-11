@@ -1,6 +1,7 @@
 package africa.semicolon.lumexpress.exceptions;
 
-public class VerificationTokenException extends X {
-    public VerificationTokenException(String token_not_found) {
+public class VerificationTokenException extends Exception {
+    public VerificationTokenException(String message) {
+        super(message);
     }
 }
