@@ -2,10 +2,8 @@ package africa.semicolon.lumexpress.services.serviceimpl;
 
 import africa.semicolon.lumexpress.data.dtos.request.CustomerRegistrationRequest;
 import africa.semicolon.lumexpress.data.dtos.request.EmailNotificationRequest;
-import africa.semicolon.lumexpress.data.dtos.request.LoginRequest;
 import africa.semicolon.lumexpress.data.dtos.request.UpdateCustomerDetails;
 import africa.semicolon.lumexpress.data.dtos.response.CustomerRegistrationResponse;
-import africa.semicolon.lumexpress.data.dtos.response.LoginResponse;
 import africa.semicolon.lumexpress.data.models.Address;
 import africa.semicolon.lumexpress.data.models.Cart;
 import africa.semicolon.lumexpress.data.models.Customer;
@@ -46,17 +44,19 @@ public class CustomerServiceImpl implements CustomerService {
         var savedCustomer = customerRepository.save(customer);
         log.info("customer to be saved in db::{}", savedCustomer.getEmail());
         var token = verificationTokenService.createToken(savedCustomer.getEmail());
-        emailNotificationService.sendHtmlMail(buildEmailNotificationRequest(token));
+        emailNotificationService.sendHtmlMail(buildEmailNotificationRequest(token, savedCustomer.getFirstName()));
         System.out.println(savedCustomer);
         return registrationResponseBuilder(savedCustomer);
     }
 
-    private EmailNotificationRequest buildEmailNotificationRequest(VerificationToken verificationToken) {
-        var email = getEmailTemplate();
+    private EmailNotificationRequest buildEmailNotificationRequest(VerificationToken verificationToken,
+                                                                   String customerName) {
+        var message = getEmailTemplate();
         String mail = null;
-        if (email != null) {
-            mail = String.format(email, verificationToken.getUserEmail(),
-                    "http://localhost:8080/" + verificationToken.getToken());
+        if (message != null) {
+            var verification = "http://localhost:8080/api/v1/customer/verify/" + verificationToken.getToken();
+            mail = String.format(message, customerName.toUpperCase(),verification);
+            log.info("mailed url -> {}", verification);
         }
         return EmailNotificationRequest.builder()
                 .userEmail(verificationToken.getUserEmail())

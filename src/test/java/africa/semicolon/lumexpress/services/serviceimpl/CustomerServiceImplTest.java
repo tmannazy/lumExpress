@@ -1,11 +1,8 @@
 package africa.semicolon.lumexpress.services.serviceimpl;
 
 import africa.semicolon.lumexpress.data.dtos.request.CustomerRegistrationRequest;
-import africa.semicolon.lumexpress.data.dtos.request.LoginRequest;
 import africa.semicolon.lumexpress.data.dtos.response.CustomerRegistrationResponse;
-import africa.semicolon.lumexpress.data.dtos.response.LoginResponse;
 import africa.semicolon.lumexpress.services.serviceinterface.CustomerService;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +11,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import javax.mail.MessagingException;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 class CustomerServiceImplTest {

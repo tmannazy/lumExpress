@@ -36,7 +36,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 class ProductServiceImplTest {
     @Autowired
     private ProductService productService;
-
     private AddProductRequest request;
     private AddProductResponse response;
 
